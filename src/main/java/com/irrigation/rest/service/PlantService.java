@@ -2,7 +2,9 @@ package com.irrigation.rest.service;
 
 import com.irrigation.exception.BOException;
 import com.irrigation.model.dto.PlantDTO;
+import com.irrigation.model.entity.Category;
 import com.irrigation.model.entity.Plant;
+import com.irrigation.repository.CategoryRepository;
 import com.irrigation.repository.PlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,14 @@ public class PlantService {
     @Autowired
     private PlantRepository repository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public PlantDTO save(PlantDTO dto) {
         Plant model = new Plant(dto);
+        Category category = categoryRepository.getOne(model.getCategory().getId());
 
+        model.setCategory(category);
         return new PlantDTO(this.repository.save(model));
     }
 

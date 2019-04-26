@@ -1,12 +1,11 @@
 package com.irrigation.model.entity;
 
 import com.irrigation.model.dto.PlantDTO;
+import com.irrigation.model.enumerations.PlantGroup;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
@@ -20,6 +19,13 @@ public class Plant extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_category"))
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
+    private PlantGroup plantGroup;
+
     public Plant() {
     }
 
@@ -28,5 +34,7 @@ public class Plant extends BaseEntity implements Serializable {
             super.setId(dto.getId());
         }
         setName(dto.getName());
+        setCategory(new Category(dto.getCategory()));
+        setPlantGroup(dto.getPlantGroup());
     }
 }
