@@ -5,12 +5,14 @@ import com.irrigation.model.dto.PlantacaoDTO;
 import com.irrigation.rest.service.ArduinoService;
 import com.irrigation.rest.service.PlantacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Component
+@EnableScheduling
 public class ScheduleActivation {
 
     @Autowired
@@ -19,19 +21,13 @@ public class ScheduleActivation {
     @Autowired
     ArduinoService arduinoService;
 
-    private PlantacaoDTO plantacao = null;
+    private PlantacaoDTO plantacao;
     private LocalDateTime endTime = LocalDateTime.now();
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 2000)
     public void verifyTimeToActivate() {
 
-        if (plantacao == null) {
-            plantacao = service.findOne(Long.valueOf(1));
-
-            if (plantacao == null) {
-                return;
-            }
-        }
+        plantacao = service.findOne(Long.valueOf(1));
 
         LocalDateTime dateNow = LocalDateTime.now();
 
