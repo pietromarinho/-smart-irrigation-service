@@ -1,6 +1,5 @@
 package com.irrigation.model.entity;
 
-import com.irrigation.model.dto.PlantDTO;
 import com.irrigation.model.dto.PlantacaoDTO;
 import com.irrigation.model.enumerations.PlantGroup;
 import lombok.Getter;
@@ -8,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,13 @@ public class Plantacao extends BaseEntity implements Serializable {
     private List<Plant> plants;
 
     @Column(nullable = false, name = "interval")
-    private Long interval;
+    private int interval;
+
+    @Column(name = "activationTime")
+    private LocalDateTime activationTime;
+
+    @Column(name = "ip")
+    private String ip;
 
     @Enumerated(EnumType.STRING)
     private PlantGroup plantGroup;
@@ -40,6 +47,8 @@ public class Plantacao extends BaseEntity implements Serializable {
         }
         setName(dto.getName());
         setInterval(dto.getInterval());
+        setActivationTime(dto.getActivationTime());
+        setIp(dto.getIp());
         setPlants(dto.getPlants().stream().map(plant -> new Plant(plant)).collect(Collectors.toList()));
 
     }

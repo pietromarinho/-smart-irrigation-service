@@ -1,7 +1,6 @@
 package com.irrigation.model.entity;
 
 import com.irrigation.model.dto.CategoryDTO;
-import com.irrigation.model.dto.PlantDTO;
 import lombok.Getter;
 import lombok.Setter;
 

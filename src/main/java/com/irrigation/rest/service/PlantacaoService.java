@@ -2,11 +2,7 @@ package com.irrigation.rest.service;
 
 import com.irrigation.exception.BOException;
 import com.irrigation.model.dto.PlantacaoDTO;
-import com.irrigation.model.entity.Category;
-import com.irrigation.model.entity.Plant;
 import com.irrigation.model.entity.Plantacao;
-import com.irrigation.repository.CategoryRepository;
-import com.irrigation.repository.PlantRepository;
 import com.irrigation.repository.PlantacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
