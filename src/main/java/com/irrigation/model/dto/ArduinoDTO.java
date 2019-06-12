@@ -17,6 +17,5 @@ public class ArduinoDTO {
 
     private Boolean ativar;
 
-    public ArduinoDTO() {
-    }
+    public ArduinoDTO() { }
 }

@@ -22,12 +22,16 @@ public class PlantacaoDTO {
     @NotNull(message = "Plantas não pode estar vazio.")
     private List<PlantDTO> plants;
 
+    @NotNull(message = "interval")
+    private Long interval;
+
     public PlantacaoDTO() {
     }
 
     public PlantacaoDTO(Plantacao model) {
         this.id = model.getId();
         this.name = model.getName();
+        this.interval = model.getInterval();
         this.plants = model.getPlants().stream().map(plant -> new PlantDTO(plant)).collect(Collectors.toList());
     }
 }

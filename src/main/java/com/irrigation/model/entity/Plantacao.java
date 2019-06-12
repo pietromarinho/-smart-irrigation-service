@@ -25,6 +25,9 @@ public class Plantacao extends BaseEntity implements Serializable {
     @ManyToMany()
     private List<Plant> plants;
 
+    @Column(nullable = false, name = "interval")
+    private Long interval;
+
     @Enumerated(EnumType.STRING)
     private PlantGroup plantGroup;
 
@@ -36,6 +39,7 @@ public class Plantacao extends BaseEntity implements Serializable {
             super.setId(dto.getId());
         }
         setName(dto.getName());
+        setInterval(dto.getInterval());
         setPlants(dto.getPlants().stream().map(plant -> new Plant(plant)).collect(Collectors.toList()));
 
     }
