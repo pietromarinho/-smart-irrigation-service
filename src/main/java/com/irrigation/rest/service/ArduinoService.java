@@ -15,7 +15,22 @@ public class ArduinoService {
 
     public void sendSignal(ArduinoDTO arduinoDTO) {
         try {
-            URL url = new URL(arduinoDTO.getIp());
+            String urlText;
+            URL url;
+
+            if (arduinoDTO.getIp() == null) {
+                urlText = "http://" + "192.168.43.83";
+            } else {
+                urlText = "http://" + arduinoDTO.getIp();
+            }
+
+            if (arduinoDTO.getAtivar()) {
+                urlText += "/led1on";
+            } else {
+                urlText += "/led1off";
+            }
+
+            url = new URL(urlText);
             URLConnection connection;
             connection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));

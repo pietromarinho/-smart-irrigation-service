@@ -7,8 +7,10 @@ import com.irrigation.repository.PlantacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class PlantacaoService {
@@ -17,18 +19,20 @@ public class PlantacaoService {
 
     public PlantacaoDTO save(PlantacaoDTO dto) {
         Plantacao model = new Plantacao(dto);
+        LocalDateTime act = LocalDateTime.now().plusMinutes(dto.getInterval());
+        model.setActivationTime(act);
 
         return new PlantacaoDTO(this.repository.save(model));
     }
 
     public PlantacaoDTO findOne(Long id) {
-        Plantacao model = this.repository.getOne(id);
+        Optional<Plantacao> model = this.repository.findById(id);
 
-        if (model == null) {
-            throw new BOException("plantcao inexistente.", new Throwable("vehicle.notfound"));
+        if (!model.isPresent()) {
+            throw new BOException("plantação inexistente.", new Throwable("plantacao.notfound"));
         }
 
-        return new PlantacaoDTO(model);
+        return new PlantacaoDTO(model.get());
     }
 
     public Collection<PlantacaoDTO> findAll() {
